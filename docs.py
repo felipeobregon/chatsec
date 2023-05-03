@@ -1,7 +1,3 @@
-from langchain.document_loaders import UnstructuredEPubLoader
-
-# goal: ask questions to a book
-
 '''
 
 you need all your data as chunks of text.   
@@ -11,13 +7,12 @@ an array of chunks, include metadata
 
 '''
 # load
+from langchain.document_loaders import UnstructuredEPubLoader
 loader = UnstructuredEPubLoader()
-
 book = loader.load()
 
 # chunk
 from langchain.text_splitter import CharacterTextSplitter
-
 ts = CharacterTextSplitter(chunk_size=1000)
 docs = ts.split_documents(book)
 
