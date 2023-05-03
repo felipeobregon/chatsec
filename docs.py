@@ -18,10 +18,8 @@ book = loader.load()
 # chunk
 from langchain.text_splitter import CharacterTextSplitter
 
-ts = CharacterTextSplitter(
-    chunk_size=1000
-)
-
+ts = CharacterTextSplitter(chunk_size=1000)
 docs = ts.split_documents(book)
 
 # embed
+
