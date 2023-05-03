@@ -21,7 +21,7 @@ PINECONE_ENV = os.environ['PINECONE_ENV']
 
 # load
 from langchain.document_loaders import UnstructuredEPubLoader
-loader = UnstructuredEPubLoader()
+loader = UnstructuredEPubLoader('book.epub')
 book = loader.load()
 
 # chunk
@@ -30,4 +30,24 @@ ts = CharacterTextSplitter(chunk_size=1000)
 docs = ts.split_documents(book)
 
 # embed
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Pinecone
 
+embeddings = OpenAIEmbeddings()
+
+import pinecone
+
+pinecone.init(
+    api_key=PINECONE_API_KEY,  # find at app.pinecone.io
+    environment=PINECONE_ENV  # next to api key in console
+)
+
+index_name = "chat"
+
+docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+
+
+query = "What did the president say about Ketanji Brown Jackson"
+docs = docsearch.similarity_search(query)
+
+print(docs[0])
