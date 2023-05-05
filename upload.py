@@ -12,7 +12,10 @@ PINECONE_ENV = os.environ['PINECONE_ENV']
 
 # load
 from langchain.document_loaders import UnstructuredEPubLoader
-loader = UnstructuredEPubLoader('book.epub')
+
+epubFileName = input('EPUB file name: ')
+
+loader = UnstructuredEPubLoader(epubFileName)
 book = loader.load()
 
 # chunk
@@ -33,6 +36,6 @@ pinecone.init(
     environment=PINECONE_ENV
 )
 
-index_name = "chat"
+index_name = input('Index name: ')
 
-docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+Pinecone.from_documents(docs, embeddings, index_name=index_name)
