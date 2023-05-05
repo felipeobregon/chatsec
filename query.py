@@ -11,7 +11,7 @@ pinecone.init(api_key=os.environ['PINECONE_API_KEY'], environment=os.environ['PI
 
 
 index_name = input('Index name: ')
-query = input('Query')
+query = input('Query: ')
 
 index = pinecone.Index(index_name)
 embeddings = OpenAIEmbeddings()
@@ -21,9 +21,4 @@ vs = Pinecone(index, embeddings.embed_query, "text")
 
 res = vs.similarity_search(query)
 
-
-with open('out', 'w') as f:
-    outs = ''
-    for x in res:
-        outs += (x.page_content + '\n-----\n')
-    f.write(outs)
+print(res[0].page_content)
