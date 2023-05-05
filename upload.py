@@ -29,8 +29,8 @@ embeddings = OpenAIEmbeddings()
 import pinecone
 
 pinecone.init(
-    api_key=PINECONE_API_KEY,  # find at app.pinecone.io
-    environment=PINECONE_ENV  # next to api key in console
+    api_key=PINECONE_API_KEY,
+    environment=PINECONE_ENV
 )
 
 index_name = "chat"
